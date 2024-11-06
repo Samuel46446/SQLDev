@@ -1,5 +1,9 @@
 CREATE DATABASE sturpin_loueauto;
 
+DROP TABLE IF EXISTS vehicule CASCADE;
+DROP TABLE IF EXISTS client CASCADE;
+DROP TABLE IF EXISTS lalocation CASCADE;
+
 CREATE TABLE vehicule(
     immatriculation VARCHAR(10),
     modele VARCHAR(20),
@@ -30,7 +34,7 @@ CREATE TABLE lalocation(
     nbJours INTEGER,
     CONSTRAINT pk_location PRIMARY KEY(numero),
     CONSTRAINT fk_Vimmatriculation FOREIGN KEY(immatriculationVehicule) REFERENCES vehicule(immatriculation),
-    CONSTRAINT fk_Cref FOREIGN KEY(referenceClient) REFERENCES location(reference)
+    CONSTRAINT fk_Cref FOREIGN KEY(referenceClient) REFERENCES client(reference)
 );
 
 INSERT INTO vehicule(immatriculation, modele, marque, etat, km)
@@ -48,7 +52,7 @@ VALUES(3, 'Baltazard', 'Farid', '56, rue Arnaud', 'Montreuil', 93100);
 INSERT INTO client(reference, nom, prenom, adresseRue, adresseVille, adresseCodePostal) 
 VALUES(4, 'Fermi', 'Jean', '1, rue de Paris', 'Romainville', 93230);
 INSERT INTO client(reference, nom, prenom, adresseRue, adresseVille, adresseCodePostal) 
-VALUES(4, 'Valmont', 'Yann', '23, rue des Merlins', 'Montreuil', 93100);
+VALUES(5, 'Valmont', 'Yann', '23, rue des Merlins', 'Montreuil', 93100);
 INSERT INTO client(reference, nom, prenom, adresseRue, adresseVille, adresseCodePostal) 
 VALUES(6, 'Rouault', 'Martine', '18, rue des Perles', 'Aulnay', 93600);
 INSERT INTO client(reference, nom, prenom, adresseRue, adresseVille, adresseCodePostal) 
@@ -68,3 +72,25 @@ VALUES(43, '123ASZ93', '04-08-09', 9628, 10235, 'ras', 4, 2);
 SELECT marque
 FROM vehicule AS V, lalocation AS L
 WHERE L.immatriculationVehicule = V.immatriculation AND L.numero = 24;
+
+SELECT C.nom
+FROM client AS C, lalocation AS L
+WHERE C.reference=L.referenceClient AND L.numero = 24;
+--Renault
+--Valmont
+
+--KmDebut et Fin servent à savoir à qui il ne faut plus préter de véhicule (qui doit rester piéton)
+--Dans la table véhicule la colonne km doit servir pour de l'entretiens
+--La valeur km dans la table Vehicule récupére la valeur kmFin en fonction l'immatriculation
+
+SELECT C.nom, C.adresseVille
+FROM client AS C, lalocation AS L
+WHERE C.reference=L.referenceClient AND C.jour='15-08-2009';
+
+SELECT DISTINCT modele
+FROM vehicule AS V, lalocation AS L
+WHERE L.immatriculationVehicule = V.immatriculation AND L.nbJours >= 2;
+
+SELECT C.nom
+FROM client AS C, lalocation AS L
+WHERE C.reference=L.referenceClient AND (kmFin-KmDebut) >= 300;
