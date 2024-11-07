@@ -1,5 +1,9 @@
 CREATE DATABASE sturpin_repMus;
 
+DROP TABLE IF EXISTS representation CASCADE;
+DROP TABLE IF EXISTS musicien CASCADE;
+DROP TABLE IF EXISTS programmer CASCADE;
+
 CREATE TABLE representation(
 numRepresentation INTEGER PRIMARY KEY,
 titre_representation VARCHAR,
@@ -60,4 +64,27 @@ SELECT nom, titre_representation
 FROM representation AS R, musicien AS M
 WHERE R.numRepresentation=M.numRepresentation;
 
---Donner la liste des titres des représentations, les lieux et les tarifs pour la journée du 14/09/2012.
+SELECT R.titre_representation, R.lieu, P.tarif
+FROM representation AS R, programmer AS P
+WHERE R.numRepresentation=P.numRepresentation AND date = '14-09-2012';
+
+SELECT DISTINCT M.nom
+FROM representation AS R, musicien AS M
+WHERE R.numRepresentation=M.numRepresentation AND titre_representation = 'Carmen';
+
+SELECT R.numRepresentation, R.titre_representation, R.lieu
+FROM representation AS R, programmer AS P
+WHERE R.numRepresentation=P.numRepresentation AND P.tarif < 15;
+
+SELECT R.titre_representation
+FROM representation AS R, programmer AS P
+WHERE R.numRepresentation=P.numRepresentation AND date BETWEEN '01-04-2012' AND '30-04-2012';
+
+SELECT P.date, R.numRepresentation
+FROM representation AS R, programmer AS P
+WHERE R.numRepresentation=P.numRepresentation AND P.tarif IS NULL;
+
+SELECT DISTINCT M.nom, R.lieu
+FROM representation AS R, musicien AS M
+WHERE R.numRepresentation=M.numRepresentation AND 
+R.lieu IN ('théâtre Marigny', 'théâtre Michel', 'théâtre Mogador', 'théâtre Molière');
