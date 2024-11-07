@@ -85,7 +85,7 @@ WHERE C.reference=L.referenceClient AND L.numero = 24;
 
 SELECT C.nom, C.adresseVille
 FROM client AS C, lalocation AS L
-WHERE C.reference=L.referenceClient AND C.jour='15-08-2009';
+WHERE C.reference=L.referenceClient AND L.jour='15-08-09';
 
 SELECT DISTINCT modele
 FROM vehicule AS V, lalocation AS L
