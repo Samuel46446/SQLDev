@@ -53,6 +53,8 @@ INSERT INTO candidat(nomCandidat,codeetab) VALUES
 INSERT INTO notation(codeepreuve,numCandidat,note) VALUES
 (1,1,12),(1,3,14),(2,2,16),(2,5,7),(2,3,18),(2,8,10),(3,10,18),(5,4,12),(6,8,14),(6,2,15),(5,9,12),(2,9,14),(7,8,16),(1,10,15);
 
+--Réponses
+
 ALTER TABLE candidat ADD COLUMN prenomCandidat VARCHAR(30) DEFAULT 'None';
 
 SELECT DISTINCT C.numCandidat
@@ -61,17 +63,17 @@ WHERE C.numCandidat=N.numCandidat;
 
 SELECT C.nomCandidat
 FROM candidat AS C, etablissement AS E
-WHERE C.codeetab=E.codeetab AND C.codeetab=230 AND E.nomEtab LIKE 'c%';
+WHERE C.codeetab=E.codeetab AND C.codeetab=230 AND C.nomCandidat LIKE 'c%';
 
 SELECT DISTINCT C.numCandidat
 FROM candidat AS C, notation AS N
-WHERE C.numCandidat=N.numCandidat AND codeepreuve=6; --AND note BETWEEN 8 AND 14;
+WHERE C.numCandidat=N.numCandidat AND codeepreuve=6 AND note BETWEEN 8 AND 14;
 
 SELECT C.numCandidat, C.nomCandidat
 FROM candidat AS C
 WHERE C.codeetab IN (203, 206, 230, 235, 289);
 
-UPDATE TABLE notation SET note = note + 1;
+UPDATE TABLE notation SET note = note + 1 WHERE codeepreuve=6;
 
 SELECT C.nomCandidat, N.note
 FROM candidat AS C, notation AS N, epreuve AS E
