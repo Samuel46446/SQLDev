@@ -23,8 +23,8 @@ CONSTRAINT pk_prog PRIMARY KEY (date, numRepresentation),
 CONSTRAINT fk_numRepProg FOREIGN KEY (numRepresentation) REFERENCES representation(numRepresentation)
 );
 
-INSERT INTO representation VALUES(
-1, 'Carmen', 'opera Bastille'),
+INSERT INTO representation VALUES
+(1, 'Carmen', 'opera Bastille'),
 (2, 'Figaro', 'théâtre Marigny'),
 (3, 'Le Lac des Cygnes', 'theatre Michel'),
 (4, 'Carmen','theâtre Mogador'),
@@ -88,3 +88,43 @@ SELECT DISTINCT M.nom, R.lieu
 FROM representation AS R, musicien AS M
 WHERE R.numRepresentation=M.numRepresentation AND 
 R.lieu IN ('théâtre Marigny', 'théâtre Michel', 'théâtre Mogador', 'théâtre Molière');
+
+--Partie 2 
+
+SELECT COUNT(numRepresentation) AS NbrRepresentation
+FROM representation;
+
+SELECT COUNT(numRepresentation) AS NbrDateProgrm
+FROM programmer
+WHERE date IS NOT NULL;
+
+SELECT DISTINCT nom
+FROM representation AS R, musicien AS M
+WHERE R.numRepresentation=M.numRepresentation AND lieu = 'Basilique St Sernin'
+ORDER BY nom ASC;
+
+SELECT AVG(P.tarif) AS PrixMoyenReprs
+FROM representation AS R, programmer AS P
+WHERE R.numRepresentation=P.numRepresentation;
+
+SELECT numRepresentation, COUNT(numRepresentation) AS decroissant
+FROM programmer
+WHERE date IS NOT NULL
+GROUP BY numRepresentation
+ORDER BY numRepresentation DESC;
+
+SELECT MAX(tarif) AS PrixMax
+FROM programmer;
+
+SELECT R.numRepresentation, titre_representation, COUNT(nom) AS NbrMusicien
+FROM representation  AS R, musicien AS M
+WHERE R.numRepresentation=M.numRepresentation
+GROUP BY R.numRepresentation, titre_representation
+ORDER BY numRepresentation ASC;
+
+SELECT P.date, P.tarif
+FROM programmer AS P
+WHERE P.date IS NOT NULL
+GROUP BY P.date, P.tarif
+HAVING P.tarif <= 30.00
+ORDER BY P.tarif, P.date ASC;

@@ -83,9 +83,16 @@ SELECT C.nomCandidat, E.nomEtab
 FROM candidat AS C, etablissement AS E, notation AS N
 WHERE C.codeetab=E.codeetab AND C.numCandidat=N.numCandidat AND note IS NOT NULL;
 
-SELECT C.numCandidat, N.codeepreuve, N.note, E.coef, ROUND(SUM(N.note*E.coef), 2) AS Moy
+SELECT C.numCandidat, N.codeepreuve, N.note, E.coef, N.note*E.coef AS Moy
 FROM candidat AS C, notation AS N, epreuve AS E
 WHERE C.numCandidat=N.numCandidat AND N.codeepreuve=E.codeepreuve
 GROUP BY C.numCandidat, N.codeepreuve, N.note, E.coef;
 
 DELETE FROM candidat WHERE codeetab IS NULL;
+
+--Partie 2
+
+
+
+On veut obtenir la liste des codes candidats et des notes obtenues à l'épreuve d'économie (code épreuve = 6). Cette liste doit être classée de manière à établir un classement de la meilleure note à la moins bonne.
+
