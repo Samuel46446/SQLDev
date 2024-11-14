@@ -94,9 +94,8 @@ R.lieu IN ('théâtre Marigny', 'théâtre Michel', 'théâtre Mogador', 'théâ
 SELECT COUNT(numRepresentation) AS NbrRepresentation
 FROM representation;
 
-SELECT COUNT(numRepresentation) AS NbrDateProgrm
-FROM programmer
-WHERE date IS NOT NULL;
+SELECT COUNT(DISTINCT (numRepresentation)) AS NbrDateProgrm
+FROM programmer;
 
 SELECT DISTINCT nom
 FROM representation AS R, musicien AS M
@@ -104,20 +103,20 @@ WHERE R.numRepresentation=M.numRepresentation AND lieu = 'Basilique St Sernin'
 ORDER BY nom ASC;
 
 SELECT AVG(P.tarif) AS PrixMoyenReprs
-FROM representation AS R, programmer AS P
-WHERE R.numRepresentation=P.numRepresentation;
+FROM programmer AS P;
 
-SELECT numRepresentation, COUNT(numRepresentation) AS decroissant
+SELECT numRepresentation, COUNT(numRepresentation) AS Decroissant
 FROM programmer
-WHERE date IS NOT NULL
 GROUP BY numRepresentation
 ORDER BY numRepresentation DESC;
 
-SELECT MAX(tarif) AS PrixMax
-FROM programmer;
+SELECT numRepresentation, MAX(tarif) AS MaxPrix
+FROM programmer
+GROUP BY numRepresentation
+HAVING MAX(tarif) > 15;
 
 SELECT R.numRepresentation, titre_representation, COUNT(nom) AS NbrMusicien
-FROM representation  AS R, musicien AS M
+FROM representation AS R, musicien AS M
 WHERE R.numRepresentation=M.numRepresentation
 GROUP BY R.numRepresentation, titre_representation
 ORDER BY numRepresentation ASC;

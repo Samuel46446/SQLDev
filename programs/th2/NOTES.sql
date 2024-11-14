@@ -85,14 +85,37 @@ WHERE C.codeetab=E.codeetab AND C.numCandidat=N.numCandidat AND note IS NOT NULL
 
 SELECT C.numCandidat, N.codeepreuve, N.note, E.coef, N.note*E.coef AS Moy
 FROM candidat AS C, notation AS N, epreuve AS E
-WHERE C.numCandidat=N.numCandidat AND N.codeepreuve=E.codeepreuve
-GROUP BY C.numCandidat, N.codeepreuve, N.note, E.coef;
+WHERE C.numCandidat=N.numCandidat AND N.codeepreuve=E.codeepreuve;
 
 DELETE FROM candidat WHERE codeetab IS NULL;
 
 --Partie 2
 
+SELECT numCandidat, note
+FROM notation
+WHERE codeepreuve = 6
+GROUP BY numCandidat, note
+ORDER BY note DESC;
+
+SELECT N.numCandidat, N.codeepreuve, N.note, E.coef, N.note*E.coef AS NoteCoeff
+FROM notation AS N, epreuve AS E
+WHERE N.codeepreuve=E.codeepreuve;
 
 
-On veut obtenir la liste des codes candidats et des notes obtenues à l'épreuve d'économie (code épreuve = 6). Cette liste doit être classée de manière à établir un classement de la meilleure note à la moins bonne.
+
+Question
+On veut obtenir le total des notes regroupé par code épreuve.
+
+Question
+On désire connaître le nombre de candidats inscrits par établissement.
+
+Question
+On voudrait obtenir les statistiques suivantes (regroupées par code épreuve).
+
+On souhaite obtenir le résultat suivant :
+
+
+Résultat de la requète
+Question
+On veut obtenir la liste des codes candidats (et leur moyenne) ayant la moyenne en économie (code épreuve = 6). Cette liste doit être classée de manière à établir un classement du meilleur au moins bon élève en économie.
 
