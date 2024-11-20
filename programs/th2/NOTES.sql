@@ -101,21 +101,21 @@ SELECT N.numCandidat, N.codeepreuve, N.note, E.coef, N.note*E.coef AS NoteCoeff
 FROM notation AS N, epreuve AS E
 WHERE N.codeepreuve=E.codeepreuve;
 
+SELECT N.codeepreuve, COUNT(N.note) AS TotNotes
+FROM notation AS N, epreuve AS E
+WHERE N.codeepreuve=E.codeepreuve
+GROUP BY N.codeepreuve;
 
+SELECT E.nomEtab, COUNT(C.numCandidat)
+FROM etablissement AS E, candidat AS C
+WHERE E.codeetab=C.codeetab
+GROUP BY E.nomEtab;
 
-Question
-On veut obtenir le total des notes regroupé par code épreuve.
+SELECT N.codeepreuve, AVG(N.note) AS MoydeNote, MIN(N.note) AS MindeNote, MAX(N.note) AS MaxdeNote
+FROM notation AS N
+GROUP BY N.codeepreuve;
 
-Question
-On désire connaître le nombre de candidats inscrits par établissement.
-
-Question
-On voudrait obtenir les statistiques suivantes (regroupées par code épreuve).
-
-On souhaite obtenir le résultat suivant :
-
-
-Résultat de la requète
-Question
-On veut obtenir la liste des codes candidats (et leur moyenne) ayant la moyenne en économie (code épreuve = 6). Cette liste doit être classée de manière à établir un classement du meilleur au moins bon élève en économie.
-
+SELECT C.numCandidat, AVG(N.note) MoyCandidat
+FROM candidat AS C, etablissement AS E, notation AS N
+WHERE C.codeetab=E.codeetab AND C.numCandidat=N.numCandidat AND codeepreuve = 6
+GROUP BY C.numCandidat;
