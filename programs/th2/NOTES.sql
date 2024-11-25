@@ -115,7 +115,9 @@ SELECT N.codeepreuve, AVG(N.note) AS MoydeNote, MIN(N.note) AS MindeNote, MAX(N.
 FROM notation AS N
 GROUP BY N.codeepreuve;
 
-SELECT C.numCandidat, AVG(N.note) MoyCandidat
+SELECT C.numCandidat, SUM(N.note) / COUNT(N.note) AS Moy
 FROM candidat AS C, etablissement AS E, notation AS N
 WHERE C.codeetab=E.codeetab AND C.numCandidat=N.numCandidat AND codeepreuve = 6
-GROUP BY C.numCandidat;
+GROUP BY C.numCandidat
+HAVING SUM(N.note) / COUNT(N.note) >= 10
+ORDER BY 2 DESC;
