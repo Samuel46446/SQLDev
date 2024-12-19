@@ -232,3 +232,52 @@ Where E.codetype = T.codetype AND prix_heure < 100;
 -- ------------
 --          30
 -- (1 ligne)
+
+SELECT _date, count(LOCATION.numlocation) as LocationParJour
+FROM LOUER, LOCATION
+WHERE LOUER.numlocation = LOCATION.numlocation
+GROUP BY _date;
+--    _date    | locationparjour
+-- ------------+-----------------
+--  2024-08-31 |               3
+--  2024-08-30 |               2
+--  2024-08-29 |               6
+--  2024-09-01 |               8
+-- (4 lignes)
+
+SELECT T.nomtype, count(E.numembarcation) as NbrJetSki
+FROM embarcation AS E, typeembarcation AS T
+Where E.codetype = T.codetype AND T.nomtype='jet-ski'
+GROUP BY T.nomtype;
+--  nbrjetski | count
+-- ---------+-------
+--  jet-ski |     5
+-- (1 ligne)
+
+SELECT T.nomtype, T.prix_demi_heure, count(E.numembarcation) as Nbr2Place
+FROM embarcation AS E, typeembarcation AS T
+Where E.codetype = T.codetype AND T.nbplace=2
+GROUP BY T.nomtype, T.prix_demi_heure;
+--     nomtype    | prix_demi_heure | nbr2place
+-- ---------------+-----------------+-----------
+--  barque        |           15.00 |         3
+--  jet-ski       |          120.00 |         2
+--  pedalo simple |           30.00 |        10
+-- (3 lignes)
+
+
+SELECT T.nomtype, count(E.numembarcation) as NbrEmbarcation
+FROM embarcation AS E, typeembarcation AS T
+Where E.codetype = T.codetype
+GROUP BY T.nomtype
+ORDER BY T.nomtype ASC;
+--      nomtype     | nbrembarcation
+-- -----------------+----------------
+--  barque          |              5
+--  bateau a moteur |              3
+--  jet-ski         |              5
+--  pedalo double   |              8
+--  pedalo simple   |             10
+--  pedalo toboggan |              7
+-- (6 lignes)
+
