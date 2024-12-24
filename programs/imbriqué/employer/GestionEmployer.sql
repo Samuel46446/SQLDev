@@ -72,3 +72,54 @@ WHERE E.DNO=D.DNO AND D.DIR=E.ENO;
 SELECT ENOM, DNOM
 FROM EMPLOYER AS E, DEPARTEMENT AS D
 WHERE E.DNO=D.DNO AND D.DIR=E.ENO AND VILLE='Boston';
+--  enom |     dnom
+-- ------+---------------
+--  Lucy | Développement
+-- (1 ligne)
+
+SELECT ENOM, PROF
+FROM EMPLOYER AS E, DEPARTEMENT AS D
+WHERE E.DNO=D.DNO AND E.ENO=D.DIR AND D.DNO IN (1, 3);
+--  enom |   prof
+-- ------+-----------
+--  Jim  | Vendeur
+--  Lucy | Ingénieur
+-- (2 lignes)
+
+SELECT ENOM, PROF, SAL, COMM
+FROM EMPLOYER
+WHERE COMM != 0;
+--  enom |    prof    | sal  | comm
+-- ------+------------+------+------
+--  Joe  | Ingénieur  | 4000 | 3000
+--  Jack | Technicien | 3000 | 2000
+--  Jim  | Vendeur    | 5000 | 5000
+--  Lucy | Ingénieur  | 5000 | 5000
+-- (4 lignes)
+
+SELECT ENOM, PROF, SAL
+FROM EMPLOYER
+ORDER BY PROF ASC, SAL DESC;
+--  enom |    prof    | sal
+-- ------+------------+------
+--  Lucy | Ingénieur  | 5000
+--  Joe  | Ingénieur  | 4000
+--  Jack | Technicien | 3000
+--  Jim  | Vendeur    | 5000
+-- (4 lignes)
+
+SELECT ROUND(AVG(SAL), 2)
+FROM EMPLOYER;
+--   round
+-- ---------
+--  4250.00
+-- (1 ligne)
+
+SELECT COUNT(*)
+FROM EMPLOYER AS E, DEPARTEMENT AS D
+WHERE E.DNO=D.DNO AND E.ENO=D.DIR AND DNOM='Production';
+--  count
+-- -------
+--      1
+-- (1 ligne)
+
