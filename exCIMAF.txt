@@ -1,0 +1,8 @@
+1) Désignation, Référence, Quantité, Prix unit, adresse livraison
+Date, adresse vendeur
+
+2) TVA, montant, total hors taxe, total facture, montant règlement
+
+3) numcommande, numsocietaire
+
+4) Référence, Quantité, Prix unit

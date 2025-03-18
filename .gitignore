@@ -1,6 +1,8 @@
 bin/
 */*.class
 */*.jar
-psql-laughter.bat
 psql-laughter.txt
+psql-laughter.bat
 .vscode/
+.txt
+.odt
