@@ -194,3 +194,13 @@ INSERT INTO  Produits  ( Ref ,  Designation ,  Quantite ,  Descriptif ,  PUHT , 
 INSERT INTO  Vendeurs  ( CodeVendeur ,  NomVendeur ,  AdresseV ,  CPV ,  VilleV ,  TelephoneV ) VALUES (15, 'FILLARD Sylvain', '77 rue du l''Adriatique', '51100', 'REIMS', '03.26.12.25.25');
 INSERT INTO  Vendeurs  ( CodeVendeur ,  NomVendeur ,  AdresseV ,  CPV ,  VilleV ,  TelephoneV ) VALUES (17, 'BAUDOT Marc', '16 rue de Reims', '51000', 'CHALONS EN CHAMPAGNE', '03.26.10.58.59');
 
+SELECT Commandes.DateCommande, SUM(Commandes.TotalHT)
+FROM Commandes C
+GROUP BY DateCommande
+HAVING SUM(TotalHT) > 300;
+
+SELECT Produits.Designation, MAX(Commandes.DateCommande)
+FROM Produits P, Commandes C, Lignes_commande L
+WHERE C.NumCommande = L.NumeroCommande AND L.Reference = P.Ref
+GROUP BY Designation
+ORDER BY MAX(DateCommande) DESC;
