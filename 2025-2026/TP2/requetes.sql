@@ -1,4 +1,4 @@
-/*SELECT f.numfact, t.numtable, f.datefact
+SELECT f.numfact, t.numtable, f.datefact
 FROM facture as f INNER JOIN tables as t ON f.numtable = t.numtable;
 
 SELECT libcons
@@ -6,11 +6,11 @@ FROM ligne_fact as l, conso as c, facture as f
 WHERE l.numcons = c.numcons AND l.numfact = f.numfact AND f.datefact = '2012-02-22';
 
 SELECT Count(*)
-FROM serveur;*/
+FROM serveur;
 
-/*INSERT INTO serveur VALUES(54,'Léon','35, rue des Lilas',69000,'Lyon','20/06/76');
-*/
-/*SELECT t.numtable, t.nbplaces
+INSERT INTO serveur VALUES(54,'Léon','35, rue des Lilas',69000,'Lyon','20/06/76');
+
+SELECT t.numtable, t.nbplaces
 FROM tables as t
 WHERE t.numtable NOT IN (SELECT f.numtable FROM facture as f);
 
@@ -48,7 +48,7 @@ ORDER BY total_ventes DESC
 LIMIT 1;
 
 DELETE FROM ligne_fact
-WHERE numfact = 1207 AND numcons=108;*/
+WHERE numfact = 1207 AND numcons=108;
 
 SELECT S.nomserv, SUM(C.prixcons * L.qte) as total_ventes
 FROM serveur AS S, facture AS F, ligne_fact AS L, conso AS C
